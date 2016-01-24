@@ -2,19 +2,19 @@
 
  app.config(function($stateProvider, $urlRouterProvider) {
      $stateProvider
-       .state('index', {
-           url: "/phones",
+       .state('login', {
+           url: "/login",
            templateUrl: "templates/login-form.html",
-           controller: "PhoneListCtrl"
+           controller: "LoginCtrl"
        })
 
-       .state('phone-details', {
-            url: "/phones/:phoneId",
+       .state('user-info', {
+            url: "/user-info/:phoneId",
             templateUrl: "templates/phone-details.html",
             controller: "PhoneDetailCtrl"
         });
 
-     //$urlRouterProvider.otherwise("/phones");
+     $urlRouterProvider.otherwise("/login");
  });
 
  app.config(["$locationProvider", function($locationProvider) {

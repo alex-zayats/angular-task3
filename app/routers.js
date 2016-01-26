@@ -9,9 +9,18 @@
        })
 
        .state('user-info', {
-            url: "/user-info/:phoneId",
-            templateUrl: "templates/phone-details.html",
-            controller: "PhoneDetailCtrl"
+            templateUrl: "templates/user-detail.html",
+            controller: "UserDetailCtrl",
+        })
+
+       .state('user-info.user-edit', { 
+                  url: "/user-edit",
+                  templateUrl: "templates/user-edit.html",
+        })
+
+        .state('user-info.user-show', {
+                  url: "/user-show",
+                  templateUrl: "templates/user-show.html",
         });
 
      $urlRouterProvider.otherwise("/login");

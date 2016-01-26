@@ -1,49 +1,70 @@
-var app = angular.module('myApp', ['ui.router', 'ngResource', 'routers']);
+var app = angular.module('myApp', ['ui.router', 'ngResource', 'ngCookies', 'routers']);
 
-app.factory('Phone', function($resource) {
-    return $resource('phones.json', {}, {
+app.factory('Users', ['$resource', function($resource) {
+    return $resource('app/users.json', {}, {
         query: {
             method: 'GET',
             isArray: true
-        },
+        }
     });
-});
+}]);
 
 app.directive('userDirective', function() {
-  return {
-    restrict: 'A', //a - attribute, e - element, c - class
-    require: 'ngModel',
-    link: function(scope, elm, attrs, ctrl) {
-        ctrl.$validators.userDirective = function(modelValue, viewValue) {
-
-        if (modelValue && modelValue.length > 3) {
-          return true;
+    return {
+        restrict: 'A', //a - attribute, e - element, c - class
+        require: 'ngModel',
+        link: function(scope, elm, attrs, ctrl) {
+            ctrl.$validators.userDirective = function(modelValue, viewValue) {
+                if (modelValue && modelValue.length > 3) {
+                    return true;
+                }
+                return false;
+            }
         }
-
-        return false;
-        }
-      }
     };
 });
 
-
-app.controller('LoginCtrl', function($scope) {
-
-    //$scope.phones = Phone.query();
-    //$scope.loginform = {};
-    //$scope.list = [];
-
-    console.log($scope);
-    console.log($scope.loginForm);
-
-    $scope.submit = function(){
-            console.log($scope.loginform);
-        //$scope.list.push($scope.username);
+app.controller('LoginCtrl', ['$scope', '$state', '$cookies', '$timeout', 'Users', function($scope, $state, $cookies, $timeout, Users) {
+    if ($cookies.get('user')){
+        $state.go('user-info.user-show');
     }
-});
 
-app.controller('PhoneDetailCtrl', function($scope, $stateParams, $http) {
-     $http.get('phones/' + $stateParams.phoneId + '.json').success(function(data) {
-         $scope.phone = data;
-     });	
-})
+    $scope.submit = function() {
+        if ($scope.loginForm.$valid) {
+
+            Users.query().$promise.then(function(data) {
+                var user = data.filter(function(obj){
+                    return (obj.login == $scope.username && obj.pass == $scope.userpassword);
+                });
+
+                if (user.length>0 ) {
+                    $cookies.put('user', $scope.username);
+                    $cookies.put('pass', $scope.userpassword);
+                    $state.go('user-info.user-show');
+                } else {
+                    $scope.userpassword = "";
+                    $scope.errorFormWibro = $scope.errorLogin= true;
+                    $scope.errorForm = false;
+
+                    $timeout(function(){
+                        $scope.errorFormWibro = false;
+                    }, 400);
+                }
+            });
+        } else {
+            $scope.errorForm = true;
+        }
+    }
+}]);
+
+app.controller('UserDetailCtrl',[ '$scope', '$state', '$cookies', function($scope, $state, $cookies) {
+    if (!$cookies.get('user')){
+        $state.go('login');
+    }
+
+    $scope.logout = function(){
+       $cookies.remove('user'); 
+       $cookies.remove('pass'); 
+       $state.go('login');
+    }
+}]);

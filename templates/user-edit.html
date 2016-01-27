@@ -1,4 +1,4 @@
-<form class="css-form" name="editForm" novalidate>
+<form class="css-form" name="editForm" novalidate ng-submit="edit()">
     <div class="form-group">
         <label for="userName">Name</label>
         <input type="text" class="form-control" id="userName" placeholder="name" ng-pattern="/^[A-Z]\S{2,}\s{0,1}[A-Z]{0,1}\S{0,}$/" ng-model="user.name" required>
@@ -9,11 +9,11 @@
     </div>
     <div class="form-group">
         <label for="userDate">Date</label>
-        <input type="text" class="form-control" id="userDate" placeholder="date" ng-model="user.date" ng-pattern="/^[1-4]\d{1}[.]([0]?[1-9]|10|11|12[.][1-2][0-9])\d{2}$/" required>
+        <input type="text" class="form-control" id="userDate" placeholder="date" ng-model="user.date" ng-pattern="/^[1-4]\d{1}[.]([0]?[1-9]|10|11|12)[.][1-2][0-9]\d{2}$/" required>
     </div>
     <div class="form-group">
         <label for="userText">Text</label>
         <input type="text" class="form-control" id="userText" placeholder="text" ng-model="user.text" >
     </div>
-    <button type="submit" class="btn btn-default">Edit</button>
+    <button type="submit" class="btn btn-default">Save changes</button>
 </form>

@@ -58,6 +58,7 @@ app.controller('LoginCtrl', [ '$scope', '$state', '$cookies', '$timeout', 'Users
 }]);
 
 app.controller('UserDetailCtrl', [ '$scope', '$state', '$cookies', function($scope, $state, $cookies) {
+    $scope.user = $scope.$parent.user;
     if (!$cookies.get('user')){
         $state.go('login');
     }
@@ -67,6 +68,14 @@ app.controller('UserDetailCtrl', [ '$scope', '$state', '$cookies', function($sco
        $cookies.remove('pass'); 
        $state.go('login');
     }
+
+    $scope.edit = function(){
+        if (!$scope.$parent.user){
+            $scope.$parent.user = {};
+        }
+        $scope.$parent.user = $scope.user;
+    }
+    
 }]);
 
 app.controller('ForgotCtrl', [ '$scope', '$state', '$timeout', 'Users', function($scope, $state, $timeout, Users){

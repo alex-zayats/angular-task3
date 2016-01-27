@@ -16,17 +16,19 @@
 
        .state('user-info', {
             templateUrl: "templates/user-detail.html",
-            controller: "UserDetailCtrl",
+            controller: "UserDetailCtrl"
         })
 
        .state('user-info.user-edit', { 
             url: "/user-edit",
             templateUrl: "templates/user-edit.html",
+            controller: "UserDetailCtrl"
         })
 
         .state('user-info.user-show', {
             url: "/user-show",
             templateUrl: "templates/user-show.html",
+            controller: "UserDetailCtrl"
         });
 
      $urlRouterProvider.otherwise("/login");

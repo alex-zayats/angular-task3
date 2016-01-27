@@ -1,6 +1,6 @@
 var app = angular.module('myApp', ['ui.router', 'ngResource', 'ngCookies', 'routers']);
 
-app.factory('Users', ['$resource', function($resource) {
+app.factory('Users', [ '$resource', function($resource) {
     return $resource('app/users.json', {}, {
         query: {
             method: 'GET',
@@ -24,7 +24,7 @@ app.directive('userDirective', function() {
     };
 });
 
-app.controller('LoginCtrl', ['$scope', '$state', '$cookies', '$timeout', 'Users', function($scope, $state, $cookies, $timeout, Users) {
+app.controller('LoginCtrl', [ '$scope', '$state', '$cookies', '$timeout', 'Users', function($scope, $state, $cookies, $timeout, Users) {
     if ($cookies.get('user')){
         $state.go('user-info.user-show');
     }
@@ -45,19 +45,19 @@ app.controller('LoginCtrl', ['$scope', '$state', '$cookies', '$timeout', 'Users'
                     $scope.userpassword = "";
                     $scope.errorFormWibro = $scope.errorLogin= true;
                     $scope.errorForm = false;
-
                     $timeout(function(){
                         $scope.errorFormWibro = false;
                     }, 400);
                 }
             });
         } else {
+            $scope.errorLogin = false;
             $scope.errorForm = true;
         }
     }
 }]);
 
-app.controller('UserDetailCtrl',[ '$scope', '$state', '$cookies', function($scope, $state, $cookies) {
+app.controller('UserDetailCtrl', [ '$scope', '$state', '$cookies', function($scope, $state, $cookies) {
     if (!$cookies.get('user')){
         $state.go('login');
     }
@@ -68,3 +68,32 @@ app.controller('UserDetailCtrl',[ '$scope', '$state', '$cookies', function($scop
        $state.go('login');
     }
 }]);
+
+app.controller('ForgotCtrl', [ '$scope', '$state', '$timeout', 'Users', function($scope, $state, $timeout, Users){
+    $scope.submit = function() {
+        if ($scope.forgotForm.$valid) {
+
+            Users.query().$promise.then(function(data) {
+                var user = data.filter(function(obj){
+                    return (obj.login == $scope.username);
+                });
+
+                if (user.length>0 ) {
+                    $timeout(function(){
+                        $scope.password = user[0].pass;
+                        $scope.showPassword = true;
+                    }, 1500);
+                } else {
+                    $scope.errorFormWibro = $scope.errorLogin = true;
+                    $scope.errorForm = $scope.showPassword = false;
+                    $timeout(function(){
+                        $scope.errorFormWibro = false;
+                    }, 400);
+                }
+            });
+        } else {
+            $scope.showPassword = $scope.errorLogin = false;
+            $scope.errorForm = true;
+        }   
+    }
+}])

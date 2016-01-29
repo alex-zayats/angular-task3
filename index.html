@@ -10,6 +10,8 @@
   <script src="node_modules/angular-ui-router/build/angular-ui-router.js"></script>
   <script src="node_modules/angular-resource/angular-resource.js"></script>
   <script src="node_modules/angular-cookies/angular-cookies.js"></script>
+  <script src="node_modules/angular-translate/dist/angular-translate.js"></script>
+  <script src="node_modules/angular-translate-loader-static-files/angular-translate-loader-static-files.js"></script>
 
   <script src="app/controllers.js"></script>
   <script src="app/routers.js"></script>
@@ -19,6 +21,12 @@
 </head>
 <body>
 
+<section ui-view name="header" ng-controller="LanguageCtrl">
+  <ul class="nav nav-pills nav-justified languages">
+    <li ng-click="changeLanguage('en');" ng-class="{'active' : lang.en}"><a href="#">English</a></li>
+    <li ng-click="changeLanguage('ru');" ng-class="{'active' : lang.ru}" ><a href="#">Русский</a></li>
+</ul>
+</section>
 <section ui-view></section>
 
 </body>

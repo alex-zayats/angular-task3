@@ -1,4 +1,4 @@
-var app = angular.module('myApp', ['ui.router', 'ngResource', 'ngCookies', 'routers']);
+var app = angular.module('myApp', ['ngCookies', 'routers']);
 
 app.factory('Users', [ '$resource', function($resource) {
     return $resource('app/users.json', {}, {
@@ -41,9 +41,11 @@ app.controller('LoginCtrl', [ '$scope', '$state', '$cookies', '$timeout', 'Users
                     $cookies.put('user', $scope.username);
                     $cookies.put('pass', $scope.userpassword);
                     $state.go('user-info.user-show');
+                    $scope.errorSubmit = false;
+                    $scope.errorForm = false;
                 } else {
                     $scope.userpassword = "";
-                    $scope.errorFormWibro = $scope.errorLogin= true;
+                    $scope.errorFormWibro = $scope.errorSubmit= true;
                     $scope.errorForm = false;
                     $timeout(function(){
                         $scope.errorFormWibro = false;
@@ -51,7 +53,7 @@ app.controller('LoginCtrl', [ '$scope', '$state', '$cookies', '$timeout', 'Users
                 }
             });
         } else {
-            $scope.errorLogin = false;
+            $scope.errorSubmit = false;
             $scope.errorForm = true;
         }
     }
@@ -88,12 +90,15 @@ app.controller('ForgotCtrl', [ '$scope', '$state', '$timeout', 'Users', function
                 });
 
                 if (user.length>0 ) {
+                    $scope.errorSubmit = false;
+                    $scope.errorForm = false;
+                    
                     $timeout(function(){
                         $scope.password = user[0].pass;
                         $scope.showPassword = true;
                     }, 1500);
                 } else {
-                    $scope.errorFormWibro = $scope.errorLogin = true;
+                    $scope.errorFormWibro = $scope.errorSubmit = true;
                     $scope.errorForm = $scope.showPassword = false;
                     $timeout(function(){
                         $scope.errorFormWibro = false;
@@ -101,8 +106,21 @@ app.controller('ForgotCtrl', [ '$scope', '$state', '$timeout', 'Users', function
                 }
             });
         } else {
-            $scope.showPassword = $scope.errorLogin = false;
+            $scope.showPassword = $scope.errorSubmit = false;
             $scope.errorForm = true;
         }   
     }
-}])
+}]);
+
+app.controller('LanguageCtrl', [ '$scope', '$translate', function($scope, $translate) {
+    $scope.lang = {};
+    $scope.lang.en = true;
+
+    $scope.changeLanguage = function (langKey) {
+        $translate.use(langKey);
+        $scope.lang = {};
+
+        if (langKey == 'ru') {$scope.lang.ru = true;}
+        if (langKey == 'en') {$scope.lang.en = true;}
+    };   
+}]);

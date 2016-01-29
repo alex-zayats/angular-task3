@@ -1,9 +1,9 @@
 <form ng-class = "{wibro: errorFormWibro}" class="form-signin" name="forgotForm" novalidate ng-submit="submit()">       
-  <h2 class="form-signin-heading">Reminder</h2>
-  <input type="text" class="form-control" name="username" ng-model="username" placeholder="Username" user-directive/> 
-  <div ng-show="errorForm">Please, check your login</div>
-  <div ng-show="errorLogin">Failed! Please, check your username</div>
-  <div ng-show="showPassword" class="alert alert-success">Your password might be: {{password}}</div>
-  <button class="btn btn-lg btn-primary btn-block" type="submit">Remind</button>
-  <button class="btn btn-lg btn-info btn-block btn-sm" type="button" ui-sref="login">Back to login</button> 
+  <h2 class="form-signin-heading">{{'reminder' | translate}}</h2>
+  <input type="text" class="form-control" name="username" ng-model="username" placeholder="{{'username' | translate}}" user-directive/> 
+  <div ng-show="errorForm" class="alert alert-danger">{{'check' | translate}}</div>
+  <div ng-show="errorSubmit" class="alert alert-danger">{{'failed' | translate}}</div>
+  <div ng-show="showPassword" class="alert alert-success">{{'remindPassword' | translate}}{{password}}</div>
+  <button class="btn btn-lg btn-primary btn-block" type="submit">{{'remind' | translate}}</button>
+  <button class="btn btn-lg btn-info btn-block btn-sm" type="button" ui-sref="login">{{'backToLogin' | translate}}</button> 
 </form>

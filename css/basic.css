@@ -55,6 +55,13 @@ input[user-directive].ng-valid{
 	background-color: MediumSeaGreen; 
 }
 
+.nav-pills.languages .active a, .nav-pills.languages .active a:hover, .nav-pills.languages .active a:focus{
+    background-color: #36B4DA;
+}
+
+.languages{
+    margin-bottom: 15px;
+}
 
 .wibro{
     display: block;

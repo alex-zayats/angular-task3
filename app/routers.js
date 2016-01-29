@@ -1,4 +1,12 @@
- var app = angular.module('routers', ['ui.router', 'ngResource']);
+ var app = angular.module('routers', ['ui.router', 'ngResource', 'pascalprecht.translate']);
+
+app.config(['$translateProvider', function($translateProvider) {
+    $translateProvider.useStaticFilesLoader({
+            prefix: '/lang/locale_',
+            suffix: '.json'
+    });
+    $translateProvider.preferredLanguage('en');
+}]);
 
  app.config(function($stateProvider, $urlRouterProvider) {
      $stateProvider

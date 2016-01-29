@@ -1,18 +1,18 @@
 <form class="css-form" name="editForm" novalidate>
     <div class="form-group">
-        <label for="userName">Name</label>
-        <input type="text" class="form-control" id="userName" placeholder="name" ng-model="user.name" readonly>
+        <label for="userName">{{'name' | translate}}</label>
+        <input type="text" class="form-control" id="userName" placeholder="{{'name' | translate | lowercase}}" ng-pattern="/^[A-Z]\S{2,}\s{0,1}[A-Z]{0,1}\S{0,}$/" ng-model="user.name" readonly>
     </div>
     <div class="form-group">
-        <label for="userAge">Age</label>
-        <input type="number" class="form-control" id="userAge" placeholder="age" ng-model="user.age" readonly>
+        <label for="userAge">{{'age' | translate}}</label>
+        <input type="number" class="form-control" id="userAge" placeholder="{{'age' | translate | lowercase}}" ng-model="user.age" age-directive readonly>
     </div>
     <div class="form-group">
-        <label for="userDate">Date</label>
-        <input type="text" class="form-control" id="userDate" placeholder="date" ng-model="user.date" readonly >
+        <label for="userDate">{{'date' | translate}}</label>
+        <input type="text" class="form-control" id="userDate" placeholder="{{'date' | translate | lowercase}}" ng-model="user.date" ng-pattern="/^[1-4]\d{1}[.]([0]?[1-9]|10|11|12)[.][1-2][0-9]\d{2}$/" readonly>
     </div>
     <div class="form-group">
-        <label for="userText">Text</label>
-        <input type="text" class="form-control" id="userText" placeholder="text" ng-model="user.text" readonly >
+        <label for="userText">{{'text' | translate}}</label>
+        <input type="text" class="form-control" id="userText" placeholder="{{'text' | translate | lowercase}}" ng-model="user.text" readonly>
     </div>
 </form>

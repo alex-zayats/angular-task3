@@ -1,0 +1,20 @@
+{
+	"login": "Login",
+	"username": "Username",
+	"password": "Password",
+	"check": "Please, check your entered data",
+	"failed": "Sorry, but failed! Please, check your entered data",
+	"forgotPassword": "Forgot password?",
+	"reminder": "Reminder",
+	"remindPassword": "Your password might be: ",
+	"remind": "Remind",
+	"backToLogin": "Back to login",
+	"editInfo": "Edit info",
+	"showInfo": "Show info",
+	"name": "Name",
+	"age": "Age",
+	"date": "Date",
+	"text": "Text",
+	"saveChanges": "Save changes",
+	"logout": "Logout"
+}
